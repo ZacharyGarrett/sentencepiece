@@ -19,11 +19,11 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/str_cat.h"
+#include "absl/strings/str_join.h"
+#include "gtest/gtest.h"
 #include "sentencepiece_model.pb.h"
 #include "sentencepiece_processor.h"
-#include "testharness.h"
-#include "third_party/absl/strings/str_cat.h"
-#include "third_party/absl/strings/str_join.h"
 #include "util.h"
 
 namespace sentencepiece {
@@ -489,7 +489,7 @@ const std::vector<Model::EncoderVersion> &GetEncoderVersions() {
   return v;
 }
 
-class UnigramModelTest : public test::TestWithParam<Model::EncoderVersion> {
+class UnigramModelTest : public testing::TestWithParam<Model::EncoderVersion> {
  protected:
   void SetUp() override { encoder_version_ = GetParam(); }
   void TearDown() override {}
@@ -951,7 +951,7 @@ TEST_P(UnigramModelTest, VerifyOutputsEquivalent) {
 }
 
 INSTANTIATE_TEST_SUITE_P(ParametrizedUnigramModelTests, UnigramModelTest,
-                         test::ValuesIn(GetEncoderVersions()));
+                         testing::ValuesIn(GetEncoderVersions()));
 
 }  // namespace unigram
 }  // namespace sentencepiece
